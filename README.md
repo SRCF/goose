@@ -1,5 +1,3 @@
-# wls_demo: a demonstration of the ucam-wls library
+# SRCF Goose
 
-Repository: <https://github.com/edwinbalani/wls-demo>
-
-This is still very much a work in progress.  Contributions welcome.
+Repository: <https://github.com/srcf/goose>

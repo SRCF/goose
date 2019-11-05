@@ -2,9 +2,11 @@ import datetime
 import os
 import re
 
+import pamela
+
 from urllib.parse import urlsplit
 
-from flask import Flask, Blueprint, request, session, render_template, redirect, abort, url_for, flash
+from flask import Flask, request, session, render_template, redirect, url_for, flash
 
 from ucam_wls import LoginService, AuthPrincipal, AuthRequest, load_private_key
 from ucam_wls.errors import InvalidAuthRequest, ProtocolVersionUnsupported, NoMutualAuthType
@@ -32,7 +34,7 @@ class BaseConfig:
 class SecurityConfig:
     SESSION_COOKIE_HTTPONLY = True
     SESSION_COOKIE_SECURE = True
-    SESSION_COOKIE_SAMESITE = 'strict'
+    # SESSION_COOKIE_SAMESITE = 'strict'
 
 app.config.from_object(BaseConfig)
 if 'WLS_SETTINGS' in os.environ:
@@ -59,7 +61,12 @@ def check_credentials(username, password):
     if app.config['TESTING']:
         return re.match(r'^test0(00[1-9]|0[1-9][0-9]|[1-4][0-9][0-9]|500)$', username) and password == 'test'
     else:
-        pass # TODO
+        try:
+            pamela.authenticate(username, password, service='login')
+        except pamela.PAMError as e:
+            print(e)
+            return False
+        return True
 
 @app.route('/logout')
 def logout():

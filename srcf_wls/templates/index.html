@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block main %}
+<h2>Instructions</h2>
+<h3>For SRCF users</h3>
+<p>You will generally use Goose to log into SRCF online services, such as:</p>
+<ul>
+  <li>the <a href="https://control.srcf.net">Control Panel</a></li>
+  <li><a href="https://lists.srcf.net">Mailman</a> mailing lists</li>
+</ul>
+<h3>For web app developers</h3>
+<p>You can use Goose to authenticate against the SRCF user database.</p>
+<p>Goose uses the <a href="https://github.com/cambridgeuniversity/UcamWebauth-protocol">Ucam-WebAuth protocol</a>
+(sometimes called the 'WAA2WLS' protocol).</p>
+<p>This is also used by the University of Cambridge <a href="https://raven.cam.ac.uk">Raven service</a>, and software/libraries
+compatible with Raven's Ucam-WebAuth implementation, such as
+<code>mod_ucam_webauth</code>, should be compatible with Goose.  You can read
+more about these on the <a href="https://raven.cam.ac.uk/project/">Raven project pages</a>.</p>
+
+<h4>Technical details</h4>
+<dl>
+  <dt>Auth service URL</dt>
+  <dd>{{ url_for('authenticate', _external=True) }}</dd>
+
+  <dt>Logout URL</dt>
+  <dd>{{ url_for('logout', _external=True) }}</dd>
+
+  <dt>Protocol versions supported</dt>
+  <dd>up to V4.1 (incorporating protocol <code>ver</code> up to 3)</dd>
+
+  <dt>ptags supplied</dt>
+  <dd>none (Raven can supply "current" for protocol <code>ver</code> 3+)</dd>
+</dl>
+{% endblock %}

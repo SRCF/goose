@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block main %}
+<h2>Insecure web application: login blocked</h2>
+<p class="lead">The web application at <code>{{ domain }}</code> wants you to log in, but is not communicating securely.</p>
+<p>To avoid leaking your identity to eavesdroppers, we have configured Goose to forbid logging into insecure web applications.</p>
+<h3>What does this mean?</h3>
+<p>Websites that talk to your browser using encryption will use addresses that start with <code>https</code>.  The web
+application at <code>{{ domain }}</code> that sent you here asked that we send the result of your login to an address starting with
+<code>{{ scheme }}</code>, which does not provide encrypted communications.</p>
+<p>Anyone who can snoop on your connection, for example when you are connected to an unsecured public network, could
+capture and store the responses that are sent by this service to web applications using insecure <code>{{ scheme }}</code> addresses.</p>
+<p>At best, an attacker with a capture of a valid authentication response would just find out your username.  At worst, they could
+"replay" the same response to the same web application, and log in as you.</p>
+<p>Whether a replay attack like this would be possible can depend on many factors, including how robust and strict the
+target web application is in its checking of authentication responses, but it is safest to make these attacks impossible
+in the first place.</p>
+{% endblock %}
