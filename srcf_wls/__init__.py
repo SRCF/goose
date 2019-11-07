@@ -4,7 +4,7 @@ import re
 
 import pamela
 
-from urllib.parse import urlsplit
+from urllib.parse import urlsplit, urlunsplit
 
 from flask import Flask, request, session, render_template, redirect, url_for, flash
 
@@ -132,6 +132,7 @@ def authenticate():
     ctx = {
         'wls_req': wls_req,
         'domain': domain,
+        'raven_handoff': urlunsplit(['https', 'raven.cam.ac.uk', '/auth/authenticate.html', request.query_string.decode(), ''])
     }
 
     if wls_req.desc:
