@@ -1,0 +1,12 @@
+body {
+  padding-bottom: 1.5rem;
+}
+body.card-page {
+  padding-bottom: 5rem;
+}
+.card-body > .card-subtitle:last-child {
+  padding-bottom: 0.5rem;
+}
+.card-body > .form-group:first-child > label {
+  padding-top: 0;
+}

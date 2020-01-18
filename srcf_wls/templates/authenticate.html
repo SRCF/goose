@@ -1,11 +1,12 @@
-{% extends "base.html" %}
+{% extends "base_card.html" %}
 {% block main %}
+{% if err_msg %}
+  <div class="alert alert-danger">{{ err_msg }}</div>
+{% endif %}
 <div class="row">
-  <div class="col-lg-6">
+  <div class="col-md-7">
+    <p>The following application wants you to log in:</p>
     <div class="card">
-      <div class="card-header">
-        The following application wants you to log in:
-      </div>
       <div class="card-body">
         {%- if desc_safe %}
         <h4 class="card-title">{{ desc_safe|safe }}</h4>
@@ -14,54 +15,68 @@
         <h4 class="card-title"><code>{{ domain }}</code></h4>
         <p class="card-subtitle text-muted">[no application name was provided]</p>
         {%- endif %}
-        {% if msg_safe -%}
-        <p class="card-text"><span class="text-muted">You need to log in because</span> {{ msg_safe|safe }}.</p>
-        {% endif -%}
-        {% if wls_req.iact == True and session_existed -%}
-        <p class="card-text">Although you were previously logged into the login service, the application requires you to enter your login details again.  This is
-        often done to protect resources that require a high level of security.</p>
-        {% endif -%}
       </div>
-      <div class="card-footer mt-3 text-muted">
-        You have been sent here to log in with your SRCF credentials.
-        <br>
-        Alternatively, you can <a href="{{ raven_handoff }}">sign in with Raven</a>.
+      {% if msg_safe -%}
+      <div class="card-footer">
+        <p class="card-text text-muted">You need to log in because <span class="text-body">{{ msg_safe|safe }}</span>.</p>
       </div>
+      {% endif -%}
     </div>
+    {% if wls_req.iact == True and session_existed -%}
+      <div class="alert alert-info">
+        Although you were previously logged into the login service, the application requires you to enter your login details again.  This is
+        often done to protect resources that require a high level of security.
+      </div>
+    {% endif -%}
+    <p class="text-muted">You have been sent here to authenticate yourself as an SRCF user.  You can login using a personal SRCF account to the right, or alternatively <a href="{{ raven_handoff }}">login with Raven</a>.</p>
+    <p class="text-muted">In either case, the application will receive your CRSid (and with Raven login, whether you are a current student or staff member).  No other personal information will be included.</p>
   </div>
-  <div class="col-lg-6">
+  <div class="col-md-5">
+    <p><strong>If you trust this application</strong>, enter your username and password below.</p>
     <div class="card">
-      <div class="card-header">
-        <strong>If you trust this application</strong>, enter your details below:</strong>
-      </div>
       <div class="card-body">
-        {% if err_msg %}
-        <div class="alert alert-danger">{{ err_msg }}</div>
-        {% endif %}
-        <form method="post">
-          <div class="form-group form-row mx-0">
-            {% if force_userid -%}
-            <label class="col-sm-3 col-form-label">Username</label>
-            <input type="text" readonly class="form-control-plaintext col-sm-9" value="{{ force_userid }}">
-            <small class="form-text text-muted mt-0 pl-2">
-              If this is not you, then <a href="{{ url_for('logout') }}">log out</a> first.
-            </small>
-            {% else -%}
-            <label for="userid" class="col-sm-3 col-form-label">Username</label>
-            <input type="text" id="userid" name="userid" placeholder={% if config['TESTING'] %}"test0001 to test0500"{% else %}"CRSid"{% endif %} class="col-sm-9 form-control">
-            {% endif -%}
-          </div>
-          <div class="form-group form-row mx-0">
-            <label for="password" class="col-sm-3 col-form-label">Password</label>
-            <input type="password" id="password" name="pwd" placeholder={% if config['TESTING'] %}"'test'"{% else %}"SRCF password"{% endif %} class="col-sm-9 form-control">
-          </div>
-          <div class="form-group text-right">
-            <button type="submit" name="action" value="login" class="float-right btn btn-primary">Sign in</button>
-            <button type="submit" name="action" value="cancel" class="float-right mr-2 btn btn-outline-secondary">Cancel</button>
-          </div>
-        </form>
+        <div class="form-group">
+          {% if force_userid -%}
+          <label>Username</label>
+          <input type="text" readonly class="form-control" value="{{ force_userid }}">
+          <small class="form-text text-muted">
+            If this is not you, then <a href="{{ url_for('logout') }}">log out</a> first.
+          </small>
+          {% else -%}
+          <label for="userid" class="col-form-label">Username</label>
+          <input type="text" id="userid" name="userid" placeholder={% if config['TESTING'] %}"test0001 to test0500"{% else %}"CRSid"{% endif %} class="form-control">
+          {% endif -%}
+        </div>
+        <div class="form-group">
+          <label for="password" class="col-form-label">Password</label>
+          <input type="password" id="password" name="pwd" placeholder={% if config['TESTING'] %}"'test'"{% else %}"SRCF password"{% endif %} class="form-control">
+        </div>
       </div>
     </div>
   </div>
+</div>
+{% endblock %}
+
+{% block footer %}
+<div class="card-footer">
+  <div class="float-left">
+    <a href="{{ raven_handoff }}" class="btn btn-outline-success">Login with Raven</a>
+  </div>
+  <div class="text-right">
+    <button type="submit" name="action" value="login" class="btn btn-outline-primary">Sign in</button>
+    <button type="submit" name="action" value="cancel" class="btn btn-outline-secondary">Cancel</button>
+  </div>
+</div>
+{% endblock %}
+
+{% block under %}
+<div class="float-left">
+  <span class="text-muted">{{ domain }}</span>
+</div>
+<div class="float-right">
+  <a href="https://www.srcf.net">
+    <span class="text-danger">Student-Run</span>
+    <span class="text-primary">Computing Facility</span>
+  </a>
 </div>
 {% endblock %}

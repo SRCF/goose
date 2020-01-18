@@ -6,8 +6,10 @@
     <title>{% block title %}{% if title %}{{ title }} - {% endif %}{{ config['WLS_TITLE'] }}{% endblock %}</title>
     <link rel="stylesheet" href="/static/vendor/css/bootstrap.min.css">
     <link rel="stylesheet" href="/static/srcf-bs.css">
+    <link rel="stylesheet" href="/static/goose.css">
   </head>
-  <body>
+  <body {% if body_classes %}class="{{ body_classes }}"{% endif %}>
+  {% block body %}
     <!-- <nav class="navbar navbar-expand-md navbar-light bg-light mb-3"> -->
     <nav class="navbar navbar-expand-md navbar-light fixed-top">
       <div class="container">
@@ -25,5 +27,6 @@
     {% endwith %}
     {% block main %}{% endblock %}
     </main>
+  {% endblock %}
   </body>
 </html>
