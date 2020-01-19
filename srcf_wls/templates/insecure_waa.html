@@ -3,7 +3,8 @@
 {% block main %}
 <h4 class="card-title">Insecure web application: login blocked</h4>
 <p>The web application at <code>{{ domain }}</code> wants you to log in, but is not communicating securely.</p>
-<p>To avoid leaking your identity to eavesdroppers, we have configured Goose to forbid logging into insecure web applications.</p>
+<p>To avoid leaking your identity to eavesdroppers, we have configured the authentication service to forbid logging into insecure web
+applications.</p>
 <h5>What does this mean?</h5>
 <p>Websites that talk to your browser using encryption will use addresses that start with <code>https</code>.  The web
 application at <code>{{ domain }}</code> that sent you here asked that we send the result of your login to an address starting with
