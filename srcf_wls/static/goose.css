@@ -4,6 +4,18 @@ body {
 body.card-page {
   padding-bottom: 5rem;
 }
+.card-page .container {
+  max-width: 768px;
+}
+.card-page .logo {
+  width: 3.2rem;
+  position: absolute;
+  top: -0.5rem;
+}
+.card-page .logo-title {
+  margin-left: 4rem;
+  margin-bottom: 1.5rem;
+}
 .card-body > .card-subtitle:last-child {
   padding-bottom: 0.5rem;
 }

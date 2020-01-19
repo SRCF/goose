@@ -2,11 +2,12 @@
 {% set body_classes = "card-page" %}
 
 {% block body %}
-<div class="container" style="max-width: 768px;">
+<div class="container">
   <form method="post">
     <div class="card mx-auto">
       <div class="card-body">
-        <h4 class="card-title"><img src="/static/images/logo.svg" style="width: 3rem; vertical-align: top; margin-right: 0.5rem"> {{ self.title() }}</h4>
+        <img src="/static/images/logo.svg" class="logo">
+        <h5 class="logo-title">{{ self.title() }}</h5>
         {% block main %}{% endblock %}
       </div>
       {% block footer %}{% endblock %}
