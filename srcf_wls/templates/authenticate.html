@@ -13,7 +13,7 @@
 {% endif -%}
 <div class="row">
   <div class="col-md-7">
-    <p>The following application wants you to log in:</p>
+    <p>The following application wants you to identify yourself:</p>
     <div class="card">
       <div class="card-body">
         {%- if desc_safe %}
@@ -26,11 +26,11 @@
       </div>
       {% if msg_safe -%}
       <div class="card-footer">
-        <p class="card-text text-muted">You need to log in because <span class="text-body">{{ msg_safe|safe }}</span>.</p>
+        <p class="card-text text-muted">You need to sign in because <span class="text-body">{{ msg_safe|safe }}</span>.</p>
       </div>
       {% endif -%}
     </div>
-    <p class="text-muted">You have been sent here to authenticate yourself as an SRCF user.  You can login using a personal SRCF account, or alternatively <a href="{{ raven_handoff }}">login with Raven</a>.</p>
+    <p class="text-muted">You have been sent here to authenticate yourself as an SRCF user.  You can sign in using a personal SRCF account, or alternatively <a href="{{ raven_handoff }}">login with Raven</a>.</p>
     <p class="text-muted">In either case, the application will receive your CRSid (and with Raven login, whether you are a current student or staff member).  No other personal information will be included.</p>
   </div>
   <div class="col-md-5">
@@ -46,12 +46,12 @@
           </small>
           {% else -%}
           <label for="userid" class="col-form-label">Username</label>
-          <input type="text" id="userid" name="userid" placeholder={% if config['TESTING'] %}"test0001 to test0500"{% else %}"CRSid"{% endif %} class="form-control">
+          <input type="text" id="userid" name="userid" placeholder={% if config['TESTING'] %}"test0001 to test0500"{% else %}"CRSid"{% endif %} class="form-control" required autofocus>
           {% endif -%}
         </div>
         <div class="form-group">
           <label for="password" class="col-form-label">Password</label>
-          <input type="password" id="password" name="pwd" placeholder={% if config['TESTING'] %}"'test'"{% else %}"SRCF password"{% endif %} class="form-control">
+          <input type="password" id="password" name="pwd" placeholder={% if config['TESTING'] %}"'test'"{% else %}"SRCF password"{% endif %} class="form-control" required{% if force_userid %} required{% endif %}>
         </div>
       </div>
     </div>
