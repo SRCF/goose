@@ -1,5 +1,7 @@
 {% extends "base.html" %}
-{% set body_classes = "card-page" %}
+{% if body_classes is not defined %}
+  {% set body_classes = "layout-card" %}
+{% endif %}
 
 {% block body %}
 <div class="container">

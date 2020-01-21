@@ -1,4 +1,6 @@
 {% extends "base_card.html" %}
+{% set body_classes = "layout-card wide" %}
+
 {% block main %}
 {% if err_msg %}
   <div class="alert alert-danger">{{ err_msg }}</div>

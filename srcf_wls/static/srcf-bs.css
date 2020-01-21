@@ -69,18 +69,20 @@ h1, h2, h3, h4, h5, h6 {
     margin-left: 0.5rem;
 }
 
-/* (only needed if menu items are present) */
-/* @media (max-width: 575px), ((min-width: 768px) and (max-width: 991px)) {
-    .navbar a > span {
+@media (max-width: 575px), ((min-width: 768px) and (max-width: 991px)) {
+    .navbar-brand:not(:only-child) a > span {
         display: none;
     }
 }
 @media (max-width: 767px) {
-    .navbar .nav-item:first-child {
+    .nav-item:first-child {
         margin-top: 2rem;
     }
-} */
+}
 
+body.layout-footer {
+    padding-bottom: 13.5rem;
+}
 footer {
     position: absolute;
     bottom: 0;
@@ -112,6 +114,37 @@ footer > .container {
     }
 }
 
+body.layout-card {
+    padding-bottom: 5rem;
+}
+.layout-card .container {
+    max-width: 576px;
+}
+.layout-card.wide .container {
+    max-width: 768px;
+}
+@media (max-width: 576px) {
+    body.layout-card {
+        padding-top: 2rem;
+        padding-bottom: 3rem;
+    }
+}
+@media (max-width: 768px) {
+    body.layout-card.wide {
+        padding-top: 2rem;
+        padding-bottom: 3rem;
+    }
+}
+.layout-card .logo {
+    width: 3.4rem;
+    position: absolute;
+    top: -0.5rem;
+}
+.layout-card .logo-title {
+    margin-left: 4rem;
+    margin-bottom: 1.5rem;
+}
+
 h2 {
     margin-bottom: 1.25rem;
 }
@@ -139,17 +172,20 @@ a.nav-link, .btn {
     top: 0.225rem;
 }
 
-.alert {
-    margin-bottom: 1.5rem;
-}
 .card {
     margin-bottom: 1.5rem;
     break-inside: avoid;
     page-break-inside: avoid;
     -webkit-column-break-inside: avoid;
 }
-.card-body {
-    padding-bottom: 0.5rem;
+.card-body > :last-child {
+    margin-bottom: 0;
+}
+.card-body > .row:last-child {
+    margin-bottom: -1rem;
+}
+.card-body > .form-group:first-child > label {
+    padding-top: 0;
 }
 .card-columns {
     column-gap: 2.25rem;
