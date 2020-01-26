@@ -6,6 +6,8 @@
     <title>{% block title %}{% if title %}{{ title }} - {% endif %}{{ config['WLS_TITLE'] }}{% endblock %}</title>
     <link rel="stylesheet" href="/static/vendor/css/bootstrap.min.css">
     <link rel="stylesheet" href="/static/srcf-bs.css">
+    <link href="/static/images/favicon.ico" rel="icon" type="image/x-icon" sizes="16x16 24x24">
+    <link href="/static/images/favicon.svg" rel="icon" type="image/svg">
   </head>
   <body {% if body_classes %}class="{{ body_classes }}"{% endif %}>
   {% block body %}

@@ -90,6 +90,10 @@ def wls_test_menu():
 
     return render_template('test.html', **ctx)
 
+@app.route('/favicon.ico')
+def legacy_favicon():
+    return redirect('/static/images/favicon.ico')
+
 def wls_fail(message):
     return render_template('error.html', message=message, fail=True), 400
 
