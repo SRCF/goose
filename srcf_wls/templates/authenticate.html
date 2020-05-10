@@ -40,7 +40,7 @@
         <div class="form-group">
           {% if force_userid -%}
           <label>Username</label>
-          <input type="text" readonly class="form-control" value="{{ force_userid }}">
+          <input type="text" readonly class="form-control" name="userid" value="{{ force_userid }}">
           <small class="form-text text-muted">
             If this is not you, then <a href="{{ url_for('logout') }}">log out</a> first.
           </small>
