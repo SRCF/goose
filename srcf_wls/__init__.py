@@ -53,6 +53,9 @@ else:
 
 wls = LoginService(key=WLS_KEY, auth_methods=['pwd'])
 
+DOMAIN_WITH_PORT_RE = re.compile(r'^(.*):0*([1-9][0-9]*)$')
+DOMAIN_PORTLESS_RE  = re.compile(r'^(.*)$')
+
 @app.route('/')
 def index():
     return render_template('index.html')
@@ -128,7 +131,19 @@ def authenticate():
 
     parts = urlsplit(wls_req.url)
     scheme = parts.scheme
-    domain = parts.netloc
+    netloc = parts.netloc  # includes port number
+    port = parts.port  # possibly None if it wasn't specified explicitly
+
+    if port is None:
+        match = re.match(DOMAIN_PORTLESS_RE, netloc)
+    else:
+        provisional_match = re.match(DOMAIN_WITH_PORT_RE, netloc)
+        match = provisional_match if str(port) == provisional_match.group(2) else None
+
+    if not match:
+        return render_template('error.html', message="Bad return host", fail=False), 400
+    else:
+        domain = match.group(1)
 
     if not domain:
         return render_template('error.html', message="No return domain specified", fail=False), 400
@@ -144,13 +159,14 @@ def authenticate():
     if wls_req.msg:
         ctx['msg_safe'] = wls_req.msg.replace('<', '&lt;').replace('>', '&gt;')
 
-    if parts.scheme != 'https' and not app.config['ALLOW_INSECURE_WAA'] \
+    if scheme != 'https' and not app.config['ALLOW_INSECURE_WAA'] \
         and domain != 'localhost':
         ctx['scheme'] = scheme
         return render_template('insecure_waa.html', **ctx), 400
 
-    if parts.netloc in app.config['BANNED_WAA_DOMAINS']:
-        message = "Domain %s has been banned from using the login service" % parts.netloc
+    if netloc in app.config['BANNED_WAA_DOMAINS'] \
+     or domain in app.config['BANNED_WAA_DOMAINS']:
+        message = "Host %s is not authorised to use this service" % netloc
         if wls_req.fail:
             return wls_fail(message)
         else:
