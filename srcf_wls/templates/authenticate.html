@@ -46,12 +46,12 @@
           </small>
           {% else -%}
           <label for="userid" class="col-form-label">Username</label>
-          <input type="text" id="userid" name="userid" placeholder={% if config['TESTING'] %}"test0001 to test0500"{% else %}"CRSid"{% endif %} class="form-control" required autofocus>
+          <input type="text" id="userid" name="userid" placeholder={% if config['TESTING'] %}"test0001 to test0500"{% else %}"CRSid"{% endif %} class="form-control" autofocus>
           {% endif -%}
         </div>
         <div class="form-group">
           <label for="password" class="col-form-label">Password</label>
-          <input type="password" id="password" name="pwd" placeholder={% if config['TESTING'] %}"'test'"{% else %}"SRCF password"{% endif %} class="form-control" required{% if force_userid %} required{% endif %}>
+          <input type="password" id="password" name="pwd" placeholder={% if config['TESTING'] %}"'test'"{% else %}"SRCF password"{% endif %} class="form-control">
         </div>
       </div>
     </div>
