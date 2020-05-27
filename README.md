@@ -12,7 +12,7 @@ accounts.
 
 ## As a principal
 
-A **principal** is someone who is being authenticated, _i.e._\ someone who is
+A **principal** is someone who is being authenticated, _i.e._ someone who is
 proving their identity in order to access resources or have their identity
 verified by Goose to another website, and probably using a username and
 password.  This will be the majority of people using Goose.
