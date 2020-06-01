@@ -160,7 +160,7 @@ def authenticate():
         ctx['msg_safe'] = wls_req.msg.replace('<', '&lt;').replace('>', '&gt;')
 
     if scheme != 'https' and not app.config['ALLOW_INSECURE_WAA'] \
-        and domain != 'localhost':
+        and domain not in ('localhost', '127.0.0.1', '[::1]'):
         ctx['scheme'] = scheme
         return render_template('insecure_waa.html', **ctx), 400
 
