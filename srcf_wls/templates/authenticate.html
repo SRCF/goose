@@ -62,7 +62,7 @@
 {% block footer %}
 <div class="card-footer">
   <div class="float-left">
-    <a href="{{ raven_handoff }}" class="btn btn-outline-success">Login with Raven</a>
+    <a href="{{ raven_handoff }}" class="btn btn-outline-success"><img src="{{ url_for('static', filename='images/raven.svg') }}" style="width: 2em"> Login with Raven</a>
   </div>
   <div class="text-right">
     <button type="submit" name="action" value="login" class="btn btn-outline-primary">Sign in</button>
