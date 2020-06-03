@@ -31,7 +31,7 @@
       {% endif -%}
     </div>
     <p class="text-muted">You have been sent here to authenticate yourself as an SRCF user.  You can sign in using a personal SRCF account, or alternatively <a href="{{ raven_handoff }}">login with Raven</a>.</p>
-    <p class="text-muted">In either case, the application will receive your CRSid (and with Raven login, whether you are a current student or staff member).  No other personal information will be included.</p>
+    <p class="text-muted">In either case, the application will receive your CRSid{% if wls_req.ver >= 3 %} (and with Raven login, whether you are a current student and/or staff member){% endif %}.  No other personal information will be included.</p>
   </div>
   <div class="col-md-5">
     <p><strong>If you trust this application</strong>, enter your username and password below.</p>
