@@ -5,16 +5,14 @@
 
 {% block body %}
 <div class="container">
-  <form method="post">
-    <div class="card mx-auto">
-      <div class="card-body">
-        <img src="/static/images/logo.svg" class="logo">
-        <h5 class="logo-title">{{ self.title() }}</h5>
-        {% block main %}{% endblock %}
-      </div>
-      {% block footer %}{% endblock %}
+  <div class="card mx-auto">
+    <div class="card-body">
+      <img src="/static/images/logo.svg" class="logo">
+      <h5 class="logo-title">{{ self.title() }}</h5>
+      {% block main %}{% endblock %}
     </div>
-  </form>
+    {% block footer %}{% endblock %}
+  </div>
   {% block under %}{% endblock %}
 </div>
 {% endblock %}

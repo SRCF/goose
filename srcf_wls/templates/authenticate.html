@@ -12,8 +12,38 @@
   </div>
 {% endif -%}
 <div class="row">
-  <div class="col-md-7">
-    <p>The following application wants you to identify yourself:</p>
+  <div class="col-md">
+    <h5>Raven account</h5>
+    <a href="{{ raven_handoff }}" class="btn btn-lg btn-outline-success btn-block text-center"><img src="{{ url_for('static', filename='images/raven.svg') }}" style="width: 2em">&nbsp;&nbsp;Login with Raven</a>
+
+    <h5 class="pt-4">SRCF account</h5>
+    <div class="card">
+      <form role="form" class="form-horizontal" method="post">
+        <div class="card-body">
+          <div class="form-group form-row">
+            {% if force_userid -%}
+              <input type="text" readonly class="form-control" name="userid" value="{{ force_userid }}">
+              <small class="form-text text-muted">
+                If this is not you, then <a href="{{ url_for('logout') }}">log out</a> first.
+              </small>
+            {% else -%}
+            <input type="text" id="userid" name="userid" placeholder={% if config['TESTING'] %}"test0001 to test0500"{% else %}"CRSid"{% endif %} class="form-control" autofocus>
+            {% endif -%}
+          </div>
+          <div class="form-group form-row">
+            <input type="password" id="password" name="pwd" placeholder={% if config['TESTING'] %}"'test'"{% else %}"SRCF password"{% endif %} class="form-control">
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="text-right">
+            <button type="submit" name="action" value="login"  class="btn btn-outline-primary">Sign in</button>
+            <button type="submit" name="action" value="cancel" class="btn btn-outline-secondary">Cancel</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div class="col-md">
     <div class="card">
       <div class="card-body">
         {%- if desc_safe %}
@@ -30,45 +60,14 @@
       </div>
       {% endif -%}
     </div>
-    <p class="text-muted">You have been sent here to authenticate yourself as an SRCF user.  You can sign in using a personal SRCF account, or alternatively <a href="{{ raven_handoff }}">login with Raven</a>.</p>
-    <p class="text-muted">In either case, the application will receive your CRSid{% if wls_req.ver >= 3 %} (and with Raven login, whether you are a current student and/or staff member){% endif %}.  No other personal information will be included.</p>
-  </div>
-  <div class="col-md-5">
-    <p><strong>If you trust this application</strong>, enter your username and password below.</p>
-    <div class="card">
-      <div class="card-body">
-        <div class="form-group">
-          {% if force_userid -%}
-          <label>Username</label>
-          <input type="text" readonly class="form-control" name="userid" value="{{ force_userid }}">
-          <small class="form-text text-muted">
-            If this is not you, then <a href="{{ url_for('logout') }}">log out</a> first.
-          </small>
-          {% else -%}
-          <label for="userid" class="col-form-label">Username</label>
-          <input type="text" id="userid" name="userid" placeholder={% if config['TESTING'] %}"test0001 to test0500"{% else %}"CRSid"{% endif %} class="form-control" autofocus>
-          {% endif -%}
-        </div>
-        <div class="form-group">
-          <label for="password" class="col-form-label">Password</label>
-          <input type="password" id="password" name="pwd" placeholder={% if config['TESTING'] %}"'test'"{% else %}"SRCF password"{% endif %} class="form-control">
-        </div>
-      </div>
-    </div>
+    <p>The application above wants you to identify yourself. <strong>If you trust this application</strong>, choose a login option.</p>
+    <p class="small text-muted">You have been sent here to authenticate yourself with your SRCF or Raven account.</p>
+    <p class="small text-muted">Regardless of which login option you choose, the application will receive your CRSid{% if wls_req.ver >= 3 %} (and with Raven login, whether you are a current student and/or staff member){% endif %}.  No other personal information will be included.</p>
   </div>
 </div>
 {% endblock %}
 
 {% block footer %}
-<div class="card-footer">
-  <div class="float-left">
-    <a href="{{ raven_handoff }}" class="btn btn-outline-success"><img src="{{ url_for('static', filename='images/raven.svg') }}" style="width: 2em"> Login with Raven</a>
-  </div>
-  <div class="text-right">
-    <button type="submit" name="action" value="login" class="btn btn-outline-primary">Sign in</button>
-    <button type="submit" name="action" value="cancel" class="btn btn-outline-secondary">Cancel</button>
-  </div>
-</div>
 {% endblock %}
 
 {% block under %}
