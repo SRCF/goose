@@ -11,6 +11,7 @@ setup(
     install_requires=[
         'ucam-wls',
         'Flask',
+        'pamela',
     ],
     python_requires='>=3',
 )
