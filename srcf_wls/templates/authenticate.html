@@ -14,9 +14,10 @@
 <div class="row">
   <div class="col-md">
     <h5>Raven account</h5>
-    <a href="{{ raven_handoff }}" class="btn btn-lg btn-outline-success btn-block text-center"><img src="{{ url_for('static', filename='images/raven.svg') }}" style="width: 2em">&nbsp;&nbsp;Login with Raven</a>
+    <a href="{{ raven_handoff }}" class="btn btn-outline-success btn-block"><img src="{{ url_for('static', filename='images/raven.svg') }}" style="width: 1.5em">&nbsp;&nbsp;Login with Raven</a>
+    <p class="small text-muted mt-2">You can use this if you are a current member of the university, or if you graduated on or after Summer 2013 (<em>Raven for Life</em>).</p>
 
-    <h5 class="pt-4">SRCF account</h5>
+    <h5 class="pt-1">SRCF account</h5>
     <div class="card">
       <form role="form" class="form-horizontal" method="post">
         <div class="card-body">
@@ -44,6 +45,7 @@
     </div>
   </div>
   <div class="col-md">
+    <p>An application wants you to identify yourself:</p>
     <div class="card">
       <div class="card-body">
         {%- if desc_safe %}
@@ -60,9 +62,8 @@
       </div>
       {% endif -%}
     </div>
-    <p>The application above wants you to identify yourself. <strong>If you trust this application</strong>, choose a login option.</p>
-    <p class="small text-muted">You have been sent here to authenticate yourself with your SRCF or Raven account.</p>
-    <p class="small text-muted">Regardless of which login option you choose, the application will receive your CRSid{% if wls_req.ver >= 3 %} (and with Raven login, whether you are a current student and/or staff member){% endif %}.  No other personal information will be included.</p>
+    <p><strong>If you trust this application</strong>, choose a login option to authenticate with your SRCF or Raven account.</p>
+    <p class="small text-muted">Regardless of which you choose, the application will receive your CRSid{% if wls_req.ver >= 3 %} (and with Raven login, whether you are a current student and/or staff member){% endif %}.  No other personal information will be included.</p>
   </div>
 </div>
 {% endblock %}
