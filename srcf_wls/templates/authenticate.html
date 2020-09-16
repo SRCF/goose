@@ -28,11 +28,11 @@
                 If this is not you, then <a href="{{ url_for('logout') }}">log out</a> first.
               </small>
             {% else -%}
-            <input type="text" id="userid" name="userid" placeholder={% if config['TESTING'] %}"test0001 to test0500"{% else %}"CRSid"{% endif %} class="form-control" autofocus>
+            <input type="text" id="userid" name="userid" {% if suggested_userid %} value="{{ suggested_userid }}"{% endif %} placeholder={% if config['TESTING'] %}"test0001 to test0500"{% else %}"CRSid"{% endif %} class="form-control" {% if not suggested_userid %} autofocus{% endif %}>
             {% endif -%}
           </div>
           <div class="form-group form-row">
-            <input type="password" id="password" name="pwd" placeholder={% if config['TESTING'] %}"'test'"{% else %}"SRCF password"{% endif %} class="form-control">
+            <input type="password" id="password" name="pwd" placeholder={% if config['TESTING'] %}"'test'"{% else %}"SRCF password"{% endif %} class="form-control" {% if suggested_userid %} autofocus{% endif %}>
           </div>
         </div>
         <div class="card-footer">

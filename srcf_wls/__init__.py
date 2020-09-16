@@ -115,8 +115,12 @@ def construct_principal(userid, expiry):
 def authenticate():
     now = datetime.datetime.utcnow()
 
+    request_args = request.args.copy()
+
+    suggested_userid = request_args.pop('userid', None)
+
     try:
-        wls_req = AuthRequest.from_query_string(request.query_string.decode())
+        wls_req = AuthRequest.from_params_dict(request_args)
     except InvalidAuthRequest as e:
         return wls_fail(message=e)
     except ProtocolVersionUnsupported as e:
@@ -151,7 +155,8 @@ def authenticate():
     ctx = {
         'wls_req': wls_req,
         'domain': domain,
-        'raven_handoff': urlunsplit(['https', 'raven.cam.ac.uk', '/auth/authenticate.html', request.query_string.decode(), ''])
+        'raven_handoff': urlunsplit(['https', 'raven.cam.ac.uk', '/auth/authenticate.html', request.query_string.decode(), '']),
+        'suggested_userid': suggested_userid,
     }
 
     if wls_req.desc:
