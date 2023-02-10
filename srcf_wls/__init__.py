@@ -155,7 +155,7 @@ def authenticate():
     ctx = {
         'wls_req': wls_req,
         'domain': domain,
-        'raven_handoff': urlunsplit(['https', 'raven.cam.ac.uk', '/auth/authenticate.html', request.query_string.decode(), '']),
+        'raven_handoff': urlunsplit(['https', 'legacy.raven.cam.ac.uk', '/auth/authenticate.html', request.query_string.decode(), '']),
         'suggested_userid': suggested_userid,
     }
 
