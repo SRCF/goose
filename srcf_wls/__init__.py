@@ -81,7 +81,7 @@ def logout():
 
 @app.route('/test')
 def wls_test_menu():
-    now = datetime.datetime.utcnow()
+    now = datetime.datetime.now(datetime.timezone.utc)
     future_time = now + datetime.timedelta(seconds=300)
     far_off_future = now + datetime.timedelta(days=3650)
     past = now + datetime.timedelta(days=-3650)
@@ -113,7 +113,7 @@ def construct_principal(userid, expiry):
 
 @app.route('/wls/authenticate', methods=['GET', 'POST'])
 def authenticate():
-    now = datetime.datetime.utcnow()
+    now = datetime.datetime.now(datetime.timezone.utc)
 
     request_args = request.args.copy()
 
@@ -204,7 +204,7 @@ def authenticate():
         if check_credentials(username, password):
             session['userid'] = username
             expiry = session['expiry'] = now + datetime.timedelta(hours=6)
-            principal = construct_principal(username, expiry)
+            principal = construct_principal(username, expiry.replace(tzinfo=None))
             wls_resp = wls.authenticate_active(wls_req, principal, 'pwd')
             return redirect(wls_resp.redirect_url)
         else:
@@ -221,7 +221,7 @@ def authenticate():
         expired = None
 
         if saved_userid:
-            expiry = session.get('expiry')
+            expiry = session.get('expiry').replace(tzinfo=datetime.timezone.utc)
             expired = expiry and (expiry < now)
 
         if saved_userid and not expired:
@@ -235,7 +235,7 @@ def authenticate():
                 return render_template('authenticate.html', **ctx)
             else:
                 # Passive authentication is possible and permissible
-                principal = construct_principal(saved_userid, expiry)
+                principal = construct_principal(saved_userid, expiry.replace(tzinfo=None))
                 wls_resp = wls.authenticate_passive(wls_req, principal)
                 return redirect(wls_resp.redirect_url)
 
